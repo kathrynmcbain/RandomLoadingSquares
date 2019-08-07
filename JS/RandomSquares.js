@@ -1,92 +1,70 @@
-//Created by KM 10/09/18
-//Tidy version...
+/**
+ * Created by KathrynMcBain on 07/08/2019.
+ */
 
-//set up squares
-//display squares
+$(document).ready(function (){
 
-$(document).ready(function () {
+    let screenwidth = screen.width;
+    let screenHeight = screen.height;
 
-    var screenwidth = screen.width;
-    var screenHeight = screen.height;
+    let squarePX = screenwidth/10; //Size dimensions of a square to be 1/10th of the device screen width.
 
-    var squarePX = screenwidth/10; //Size dimensions of a square
-    console.log('squarePX: '+squarePX);
-    var blockCount = (screenHeight/squarePX)*10 //number of squares that will fit in height - x10 for rows = total squares required.
-    var squares = [];
+    let blockCount = (screenHeight/squarePX)*10; //number of squares that will fit in height of screen - x10 for rows = total squares required.
 
-    //Sets up array of colours, can be hex codes or names - no restriction on size.
-    var colours = ["#3B0030", "#F53A33", "#FF9130", "#FEDD55", "#128C87", "#324D5C", "#14B278", "#F0CA4D", "#E37B40", "#ED3752", "#BF0C2B", "#02173E", "#09A38C", "#F5900E", "#F14C13"];
+    //Sets up array of colours, can be hex codes or uncomment for names - no restriction on size.
+    let colours = ["#3B0030", "#F53A33", "#FF9130", "#FEDD55", "#128C87", "#324D5C", "#14B278", "#F0CA4D", "#E37B40", "#ED3752", "#BF0C2B", "#02173E", "#09A38C", "#F5900E", "#F14C13"];
     //var colours = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
-    var i;
+    var squares=[];
 
-    //number of squares required
+    //position of first square
+    let t=0;
+    let r=squarePX;
+    let b=squarePX;
+    let l=0;
 
+    //draw new row
+    for (let i = 0; i < 10; i++) { //draw horizontal
 
-    function Square(ID, colour, text) { //constructor creates a new instance of the square object
-        this.sqID = ID; //used to manipulate
-        this.sqColour = colour; //used to set background colour of squares
-    }
+        for (let j = 0; j < 10; j++) { //draw horizontal
+            let random = Math.floor((Math.random() * colours.length));
 
+            let id=(i.toString())+(j.toString()); //works as coordinate .eg. 00,01,02,03....10,11,12 etc etc
+            let points = [t, r, b, l];
+            squares[id] = new Square(id, points, colours[random]);
 
-    for (i = 0; i < blockCount; i++) {
-        var random = Math.floor((Math.random() * colours.length));
-        squares[i] = new Square(i, colours[random], "");
+            //increment position of left and right for next square along
+            r += squarePX;
+            l += squarePX;
 
-        //Append square to DOM
-        $("#squareGrid").append('<div class="square" id="' + squares[i].sqID + '" style="background-color:' + squares[i].sqColour + ';"></div>')
-    }
-
-
-    var q = 0;
-    var end = squares.length; //point to end
-    for (var r = 0; r < squares.length; r++) {
-        var randomFadesRemaining = squares[end];
-        randomFader = Math.floor((Math.random() * randomFadesRemaining)).toString();
-    }
-
-    //Jumble array so squares disappear in a random order rather than consecutively
-    function shuffle(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
         }
-
-        return array;
+        //increment position of top and bottom for next square down
+        t += squarePX;
+        b += squarePX;
     }
 
 
-    var squaresToFade = [];
-    for (var e = 0; e < squares.length; e++) {
-        squaresToFade.push(squares[e].sqID);
+    function Square(id,points,colour){ //constructor
+        this.id=id;
+        this.points=points;
+        this.colour=colour;
     }
-
-    squaresToFade = shuffle(squaresToFade);
-
-
-    var fade = setInterval(
-        function () {
-            var fadingSquare = squaresToFade[q];
-
-            if (q >= squaresToFade.length) {
-               //Things to do when squares have all disappeared
-
-                $("square").css("display", "none");
-                clearInterval(fade);
-            }
-            $("#" + fadingSquare).css("background-color", "white");
-            $("#" + fadingSquare).css("z-index", "0"); //puts faded square behind content
-            q++;
-
-        }, 100);
-
+    console.log(squares);
 });
+
+function drawSquares(){
+    //ctx.fillRect(0, 0, 150, 75);
+
+    /*
+     square
+
+
+     */
+}
+/*
+ function removeSquares(){
+ //clearRect()
+ }
+ drawSquares();
+
+ removeSquares();
+ */
