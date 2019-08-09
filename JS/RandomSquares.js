@@ -4,14 +4,17 @@
 
 $(document).ready(function () {
 
-    let screenwidth = screen.width;
-    let screenHeight = screen.height;
-    console.log(screenHeight);
-    console.log(screenwidth);
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
 
-    let squarePX = screenwidth / 10; //Size dimensions of a square to be 1/10th of the device screen width.
+    let c = document.getElementById("squareGrid");
+    let ctx = c.getContext("2d");
+    ctx.canvas.width  = screenWidth;
+    ctx.canvas.height = screenHeight;
+
+    let squarePX = screenWidth / 10; //Size dimensions of a square to be 1/10th of the device screen width.
     console.log('squarePX' + squarePX);
-    let blockCount = (screenHeight / squarePX) * 10; //number of squares that will fit in height of screen - x10 for rows = total squares required.
+    let blockCount = Math.round((screenHeight / squarePX)+0.5) * 10; //number of squares that will fit in height of screen - x10 for rows = total squares required.
 
     //Sets up array of colours, can be hex codes or uncomment for names - no restriction on size.
     let colours = ["#3B0030", "#F53A33", "#FF9130", "#FEDD55", "#128C87", "#324D5C", "#14B278", "#F0CA4D", "#E37B40", "#ED3752", "#BF0C2B", "#02173E", "#09A38C", "#F5900E", "#F14C13"];
@@ -58,16 +61,6 @@ $(document).ready(function () {
     }
 
 
-    var c = document.getElementById("squareGrid");
-    var ctx = c.getContext("2d");
-
-    //ctx.fillRect(squares[i].points[0],squares[i].points[1],squares[i].points[2],squares[i].points[3]);
-    ctx.beginPath();
-    ctx.globalAlpha = 1;
-    //ctx.fillStyle = squares[2].colour;
-    ctx.fillRect(0, 0, squarePX, squarePX);
-    ctx.closePath();
-
 
     for (let j = 0; j < blockCount; j++) {
         console.log(squares[j]);
@@ -77,15 +70,9 @@ $(document).ready(function () {
         drawSquares(blockCount,squares);
     }
 
-    //ctx.fillStyle = squares[i].colour;
-    //console.log(squares[i].points[3], squares[i].points[0]);
-    //ctx.fillRect(squares[i].points[0],squares[i].points[4],30,40);
-    //ctx.fillRect(squares[i].points[3], squares[i].points[0], squarePX, squarePX);
-    //drawSquares(blockCount,squares);
-
 });
 
-function drawSquares(blockCount, squares) {
+function drawSquares(blockCount,squares) {
 
 
     /*
