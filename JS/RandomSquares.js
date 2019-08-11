@@ -24,8 +24,6 @@ $(document).ready(function () {
 
     //position of first square
     let y = 0;
-    let width = squarePX;
-    let height = squarePX;
     let x = 0;
 
 
@@ -39,11 +37,10 @@ $(document).ready(function () {
             let id = ((i.toString()) + (j.toString()));//works as coordinate .eg. 00,01,02,03....10,11,12 etc etc
             id = parseInt(id).toFixed(0); //turns coordinate into int and slices of leading 0 so it can be used to access array position
             //let id =k;
-            let points = [y, width, height, x];
+            let points = [y, squarePX, squarePX, x];
             squares[id] = new Square(id, points, colours[random]);
 
             //increment position of left and right for next square along
-            //r += squarePX;
             x += squarePX;
 
             if (j === 9) { //if on last iteration through loop i.e last square in current row, then set x position back to 0 again (left of screen)
@@ -119,38 +116,5 @@ $(document).ready(function () {
 
         }, 100);
 
-//removeSquares(ctx, blockCount,squares,squarePX);
-
 });
 
-/*
- function test(ctx,squares,squarePX, k, blockCount){
- var fade = setInterval(
- function () {
- ctx.clearRect(squares[k].points[3], squares[k].points[0], squarePX, squarePX);
- if (k=blockCount) {
- console.log('k: '+k);
- clearInterval(fade);
- }
- }, 1000);
- }
- */
-/*
- function removeSquares(ctx, blockCount,squares, squarePX) {
- for (let j = 0; j < blockCount; j++) {
-
- setTimeout(function myFunction(ctx,squares,squarePX){
- ctx.clearRect(0,0,150,150);
- //ctx.clearRect(squares[j].points[3], squares[j].points[0], squarePX, squarePX);
- }, 3000);
- }
- }
- */
-/*
- function removeSquares(){
- //clearRect()
- }
- drawSquares();
-
- removeSquares();
- */
