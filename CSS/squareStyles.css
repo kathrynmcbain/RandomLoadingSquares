@@ -30,21 +30,3 @@ body{
     position: absolute;
     z-index: 1;
 }
-
-
-/* Mobile Styles */
-/*
-@media screen and (max-width: 600px) {
-    .linkSquare {
-        background-color: lightblue;
-    }
-    #someText{
-        height: 20vh;
-        width: 80vw;
-        margin: 40vh 10vw 40vh 10vw;
-        background-color: #2F344F;
-        color: white;
-        text-align: center;
-    }
-}
-*/
