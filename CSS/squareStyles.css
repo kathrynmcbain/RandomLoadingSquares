@@ -1,3 +1,4 @@
+
 body{
     margin: 0%;
     padding: 0%;
@@ -7,7 +8,7 @@ body{
 
 #siteContent{
     position: absolute;
-    z-index: 1;
+    z-index: 0;
     background: url("../Images/backgroundOne.png");
     width: 100vw;
     height: 100vh;
@@ -24,37 +25,8 @@ body{
     line-height: 20vh;
 }
 
-.square{
-    width: 10vw;
-    height: 10vw;
-    float: left;
-    color: white;
-    font-size: 30px;
-    position: relative;
-    z-index: 2;
-}
-
 #squareGrid{
-    width: 100vw;
-    height: 100vh;
     overflow: hidden;
-    background-color: white;
     position: absolute;
-    z-index: 0;
-}
-
-/* Mobile Styles */
-
-@media screen and (max-width: 600px) {
-    .linkSquare {
-        background-color: lightblue;
-    }
-    #someText{
-        height: 20vh;
-        width: 80vw;
-        margin: 40vh 10vw 40vh 10vw;
-        background-color: #2F344F;
-        color: white;
-        text-align: center;
-    }
+    z-index: 1;
 }
