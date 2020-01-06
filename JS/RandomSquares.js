@@ -96,6 +96,7 @@ $(document).ready(function () {
         function () {
             if (q >= blockCount-1) {
                 clearInterval(fade);
+                c.parentNode.removeChild(c); //remove canvas when done, so links can be clicked
             }
             //fade current
             ctx.clearRect(squaresToFade[q].points[3], squaresToFade[q].points[0], squarePX, squarePX);
